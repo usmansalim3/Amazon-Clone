@@ -26,8 +26,7 @@ const Splash = () => {
           const {user}=userData.data
           const {cart}=cartData.data
           const {orders}=orderData.data
-          console.log(orders,"orders")
-          console.log(user,"users")
+          console.log(user.defaultAddress,"users")
           dispatch(loggedIn({userId:user._id,userName:user.name,addresses:user.addresses,defaultAddress:user.defaultAddress,wishlist:user.wishlist,orders}))
           dispatch(setCart(cart))
             navigation.dispatch(StackActions.replace("HomeTabs"))

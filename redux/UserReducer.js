@@ -29,9 +29,22 @@ const userReducer=createSlice({
             console.log("doin")
             state.addresses.push(payload);
         },
+        editAddress:(state,{payload})=>{
+            state.addresses.forEach((address,idx)=>{
+                if(address.addressID==payload.addressID){
+                    if(state.defaultAddress.addressID==address.addressID){
+                        state.defaultAddress=payload.address
+                    }
+                    state.addresses[idx]=payload.address;
+                }
+            })
+        },
         removeAddress:(state,{payload})=>{
             console.log(state.addresses);
             console.log(payload)
+            if(state.defaultAddress.addressID==payload.addressID){
+                state.defaultAddress=undefined;
+            }
             state.addresses=state.addresses.filter(add=>add.addressID!==payload);
         },
         setDefaultAddress:(state,{payload})=>{
@@ -62,4 +75,4 @@ const userReducer=createSlice({
 
 })
 export default userReducer.reducer;
-export const {loggedIn,updateAddress,removeAddress,setDefaultAddress,addAddress,addWish,removeFromWish,logout,addOrders}=userReducer.actions
+export const {loggedIn,updateAddress,removeAddress,setDefaultAddress,addAddress,addWish,removeFromWish,logout,addOrders,editAddress}=userReducer.actions

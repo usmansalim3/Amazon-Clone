@@ -29,7 +29,9 @@ const YourAddresses = () => {
   }
   // console.log(defaultAddress.addressID)
   async function setDefaultAddressHandler(address){
+    console.log(address.addressID)
     try{
+      console.log(address);
       const res=await axios.post(`${link}/addresses/setDefault`,{
         userId,
         address
@@ -50,7 +52,10 @@ const YourAddresses = () => {
         <Ionicons name="chevron-back-sharp" size={24} color="black" onPress={()=>navigation.goBack()} />
         <Text style={{fontSize:24}}>Your Addresses</Text>
       </View>
-      <Pressable onPress={()=>navigation.navigate('addAddress')} style={{
+      <Pressable onPress={()=>navigation.navigate('addAddress',{
+        edit:false,
+        addressID:undefined
+      })} style={{
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "space-between",
@@ -102,7 +107,9 @@ const YourAddresses = () => {
           <View style={{flexDirection:'row',gap:10,marginTop:10,flexWrap:'wrap'}}>
             <Pressable onPress={()=>{
               navigation.navigate('addAddress',{
-                address:item
+                address:item,
+                edit:true,
+                addressID:item.addressID
               })
             }} style={{
               borderWidth:1,

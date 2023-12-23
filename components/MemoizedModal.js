@@ -60,7 +60,7 @@ function MemoizedModal() {
         return displayAddress
     }
     else if(addresses.length==0){
-        return "Delhi - 110080"
+        return "Enter your location"
     }else{
         let displayAddress=addresses[0].city.trim()+" - "+addresses[0].postalCode.trim();
         return displayAddress
@@ -77,7 +77,7 @@ function MemoizedModal() {
             }}>
               <View style={{flexDirection:'row',alignItems:'center'}}>
               <Entypo name="location-pin" size={24} color="red" />
-              <Text style={{fontSize:15}}>Deliver to {userName.charAt(0).toUpperCase()+userName.slice(1)} {addressToDisplay()}</Text>
+              <Text style={{fontSize:15}}>Deliver to {(defaultAddress!==undefined?defaultAddress.name:userName).charAt(0).toUpperCase()+(defaultAddress!==undefined?defaultAddress.name:userName).slice(1)} {addressToDisplay()}</Text>
               </View>
               <AntDesign name="down" size={18} style={{top:1,marginLeft:20}} color="grey" />
           </Pressable>

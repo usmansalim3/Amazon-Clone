@@ -188,5 +188,5 @@ const list = [
     { label: "electronics", value: "electronics" },
     { label: "women's clothing", value: "women's clothing" },
   ];
-export const link="http://192.168.0.186:5000";
+export const link="http://192.168.0.187:5000";
 export {offers,list,deals,images,item}

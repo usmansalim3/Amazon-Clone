@@ -7,7 +7,7 @@ import "yup-phone";
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import Spinner from 'react-native-loading-spinner-overlay';
-import { updateAddress } from '../../redux/UserReducer';
+import { editAddress, updateAddress } from '../../redux/UserReducer';
 import { link } from '../../data/data';
 import {Ionicons} from "@expo/vector-icons"
 
@@ -29,6 +29,8 @@ const AddAddress = () => {
   })
   const route=useRoute();
   useLayoutEffect(()=>{
+    console.log(route.params?.edit)
+    console.log(route.params?.addressID)
     if(route.params?.address){
         const address=route.params.address
         formik.setValues({
@@ -73,12 +75,22 @@ const AddAddress = () => {
             landmark:formik.values.landmark,
             street:formik.values.street
         }
+        if(route.params?.address){
+            address.addressID=route.params.address.addressID
+        }
         const res=await axios.post(`${link}/addresses`,{
             userId,
-            address
+            address,
+            editing:route.params?.edit?true:false,
+            addressID:route.params?.addressID
         }) 
         console.log(res.data);
-        dispatch(updateAddress(address))
+        if(route.params?.edit){
+            dispatch(editAddress({address,addressID:route.params.addressID}))
+        }else{
+            address.addressID=res.data.addressID;
+            dispatch(updateAddress(address))
+        }
         navigation.dispatch(StackActions.pop());
     }catch(e){
         console.log(e);
@@ -133,7 +145,7 @@ const AddAddress = () => {
             </View>
             <Pressable onPress={formik.handleSubmit} style={{padding:10,backgroundColor:"#ffc72c",borderRadius:3,marginTop:50,height:50,justifyContent:'center',alignItems:'center'}}>
                 <Text style={{textAlign:"center",fontWeight:'400'}}>
-                    Add Address
+                    {route.params?.edit?"Edit":"Add"} Address
                 </Text>
             </Pressable>
         </View>

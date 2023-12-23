@@ -145,7 +145,7 @@ const CartScreen = () => {
         <Pressable
           onPress={()=>{
             if(cart.length){
-              // navigation.navigate('checkout')
+              navigation.navigate('checkout')
             }else{
               Toast.show({text1:'Cart is empty',position:"bottom"})
             }
