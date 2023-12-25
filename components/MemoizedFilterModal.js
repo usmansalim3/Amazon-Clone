@@ -440,7 +440,6 @@ const MemoizedFilterModal = () => {
             >
               <Pressable
                 onPress={() => {
-                  ref.current.close()
                   Keyboard.dismiss();
                   setModal(false);
                   dispatch(
@@ -450,7 +449,11 @@ const MemoizedFilterModal = () => {
                       orderBy: sortBy,
                       rating: stars,
                     })
-                  );
+                    );
+                    setTimeout(()=>{
+                      ref.current.close()
+                      ref.current.close()
+                    },1000)
                 }}
                 style={{ paddingHorizontal: 10,backgroundColor:'#ffc72c',paddingVertical:5,borderRadius:20 }}
               >
@@ -461,7 +464,11 @@ const MemoizedFilterModal = () => {
                   Keyboard.dismiss();
                   setModal(false);
                   dispatch(resetFilters());
-                  ref.current.close()
+                  setTimeout(()=>{
+                    ref.current.close()
+                    ref.current.close()
+                  },1000)
+                  // ref.current.close()
                 }}
                 style={{ backgroundColor:"#ffc72c",paddingHorizontal:10,paddingVertical:5,borderRadius:20 }}
               >

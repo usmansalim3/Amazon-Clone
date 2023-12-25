@@ -30,13 +30,11 @@ import axios from "axios";
 import { addWish } from "../../redux/UserReducer";
 import { link } from "../../data/data";
 import Carousel from "react-native-reanimated-carousel";
-import { Cloudinary } from "@cloudinary/url-gen";
-import { AdvancedImage, upload } from "cloudinary-react-native";
-import Modal, { ModalButton, ModalContent, ModalFooter, ModalTitle } from "react-native-modals";
-import moment from "moment";
 import { FlatList } from "react-native-gesture-handler";
 import { nanoid } from "@reduxjs/toolkit";
 import ImageView from "react-native-image-viewing";
+import { StatusBar as expoBar } from 'expo-status-bar';
+
 
 const SingleProductScreen = () => {
   const route = useRoute();
@@ -53,7 +51,6 @@ const SingleProductScreen = () => {
   const [inCart,setInCart]=useState(false);
   const [inWish,setInWish]=useState(false);
   const [loadingReviews,setLoadingReviews]=useState(false);
-
 
   useEffect(()=>{
     getReviews();
@@ -298,7 +295,7 @@ const SingleProductScreen = () => {
           <View style={{flexDirection:'row',marginTop:10,alignItems:'center'}}>
             <Ionicons name="location" size={24} color="#b7b7b7" style={{right:5}} />
             <Text>
-              Deliver to {userName} - {defaultAddress?.city} {defaultAddress?.postalCode}
+              Deliver to {defaultAddress?.name?defaultAddress?.name:"Choose an address"} - {defaultAddress?.city?defaultAddress?.city:""} {defaultAddress?.postalCode?defaultAddress?.postalCode:""}
             </Text>
           </View>
         </View>
@@ -338,6 +335,13 @@ const SingleProductScreen = () => {
 
 function ReviewCard({userName,createdAt,review,stars,images}){
   const [visible,setVisible]=useState(false);
+  useEffect(()=>{
+    if(visible){
+      // StatusBar.setBackgroundColor("#000");
+    }else{
+      // StatusBar.setTranslucent(true)
+    }
+  },[visible])
   const reviewImages=useMemo(()=>{
     return images.map((image,index)=>{
       return {uri:image.url,key:index}
@@ -345,7 +349,7 @@ function ReviewCard({userName,createdAt,review,stars,images}){
   },[])
   return(
     <View>
-      <ImageView onRequestClose={()=>setVisible(false)} keyExtractor={(item)=>item.key} images={reviewImages} visible={visible}/>
+      <ImageView  onRequestClose={()=>setVisible(false)} keyExtractor={(item)=>item.key} images={reviewImages} visible={visible} presentationStyle="overFullScreen" backgroundColor="#000"  />
           <View style={{backgroundColor:"#D0D0D0",margin:5,paddingHorizontal:10,paddingVertical:8,flexDirection:"row",height:'auto',borderRadius:5,gap:5}}>
             <View style={{flex:0.15}}>
               <UserAvatar style={{width:50,height:50,borderRadius:25}} size={50} name={userName}/>
@@ -503,12 +507,12 @@ function ReviewModal({vis,setVis,userId,setReviews,userName,id}){
     </Pressable>
     <BottomSheetModal footerComponent={keyboardHeight?()=>{}:renderFooter} backdropComponent={renderBackdrop} enableHandlePanningGesture={false} enableContentPanningGesture={false} enableOverDrag={false} enablePanDownToClose={false}  ref={ref} index={0}
           snapPoints={['60%','80%']}>
-            <BottomSheetScrollView nestedScrollEnabled>
+            <BottomSheetScrollView nestedScrollEnabled={true}>
              <TextInput multiline placeholder="Write here...." value={text} onChangeText={setText} onFocus={()=>setFocus(true)} onBlur={()=>{
                 setFocus(false)
                 Keyboard.dismiss()
               }} style={{borderColor:focus?"#008397":"#D0D0D0",borderWidth:1,borderRadius:5,fontSize:16,padding:5,marginHorizontal:20,marginVertical:10,maxHeight:80}}/>
-              <BottomSheetFlatList data={uploaded} horizontal renderItem={({item})=>{
+              <FlatList data={uploaded} horizontal renderItem={({item})=>{
                 return(
                   <ImageBackground resizeMode='contain' source={{uri:item.url}} style={{height:150,width:200,marginHorizontal:10,backgroundColor:"black"}}>
                     <AntDesign name="close" size={16} color={"#D0D0D0"} onPress={()=>{
@@ -541,7 +545,9 @@ function ReviewModal({vis,setVis,userId,setReviews,userName,id}){
 export default SingleProductScreen;
 
 const styles = StyleSheet.create({});
-function CarouselComponent({offer,inWish,removeFromWish,addToWishlist,carouselImages,width,image}){
+function CarouselComponent({offer,inWish,removeFromWish,addToWishlist,carouselImages,width,image})
+{
+  const route=useRoute();
   const images=useMemo(()=>{
     if(!carouselImages){
       return [{uri:image}]
@@ -555,7 +561,7 @@ function CarouselComponent({offer,inWish,removeFromWish,addToWishlist,carouselIm
   const[imageViewVisible,setImageViewVisible]=useState(false);
   return(
     <>
-      <ImageView images={images} keyExtractor={(item)=>item.key} imageIndex={activeIndex} visible={imageViewVisible} onRequestClose={setImageViewVisible}/>
+      <ImageView images={images} keyExtractor={(item)=>item.key} presentationStyle="overFullScreen" imageIndex={activeIndex} visible={imageViewVisible} onRequestClose={setImageViewVisible}/>
     <View>
       {offer?<View
               style={{

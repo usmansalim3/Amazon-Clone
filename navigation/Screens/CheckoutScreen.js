@@ -118,10 +118,11 @@ const CheckoutScreen = () => {
 
   async function checkoutHandler(){
     try{
+      const cartCopy=cart.map(items=>items);
       setActive(active=>active+1);
       const order={
       userId,
-      cartItems:cart,
+      products:cartCopy,
       totalPrice:totalCost,
       shippingAddress:deliveryAddress,
       paymentMethod:paymentMethod
@@ -129,8 +130,8 @@ const CheckoutScreen = () => {
       const {data}=await axios.post(`${link}/orders`,{
       ...order
     })
-    dispatch(cleanCart());
     dispatch(addOrders(order));
+    dispatch(cleanCart());
     console.log(data);
     }catch(e){
       console.log(e);
