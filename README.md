@@ -31,6 +31,8 @@ A full Stack Amazon Clone made using React Native , ExpressJS along with Global 
 
 **Server:** Node, Express, Cloudinary, MongoDB
 
+## Backend
+https://github.com/usmansalim3/Amazon-Clone-Backend
 
 # Screenshots
 ![s1](https://github.com/usmansalim3/Amazon-Clone/assets/112751010/5a54c79a-7a68-4f7c-8209-5798ae12c25e)
