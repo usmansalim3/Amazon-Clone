@@ -40,6 +40,7 @@ A full Stack Amazon Clone made using React Native , ExpressJS along with Global 
 ![Screenshot 2024-01-18 210420](https://github.com/usmansalim3/Amazon-Clone/assets/112751010/4fbfaa7d-c74a-461e-a042-7141147deb18)
 
 ## Demo
+https://github.com/usmansalim3/Amrutam-Task/assets/112751010/069de0f2-7a70-4cce-82a0-216576464207
 https://github.com/usmansalim3/Amrutam-Task/assets/112751010/879e1591-7b4a-41ad-993c-403aecff8926
 
 https://github.com/usmansalim3/Amrutam-Task/assets/112751010/92458445-129a-4da4-aa03-058eec781217
@@ -48,9 +49,6 @@ https://github.com/usmansalim3/Amrutam-Task/assets/112751010/92458445-129a-4da4-
 
 https://github.com/usmansalim3/Amrutam-Task/assets/112751010/e49fd2d1-78b0-4ada-8510-c
 
-https://github.com/usmansalim3/Amrutam-Task/assets/112751010/911a9ade-86f7-4ffb-9683-fd1287842bd2
-
-9540464cf24
+https://github.com/usmansalim3/Amrutam-Task/assets/112751010/911a9ade-86f7-4ffb-9683-fd1287842bd29540464cf24
 
 
-https://github.com/usmansalim3/Amrutam-Task/assets/112751010/069de0f2-7a70-4cce-82a0-216576464207
