@@ -35,12 +35,17 @@ const MemoizedFilterModal = () => {
   const { from, to, orderBy, rating, category } = useSelector(
     (state) => state.products
   );
-  
   const [stars, setStars] = useState(rating);
   const [lowest, setLowest] = useState(from);
   const [highest, setHighest] = useState(to);
   const [sortBy, setSortBy] = useState(orderBy);
   const [modal, setModal] = useState(false);
+  useEffect(()=>{
+    setStars(rating);
+    setSortBy(orderBy);
+    setLowest(from);
+    setHighest(to);
+  },[dispatch,from,to,orderBy,rating])
   
   const [keyboardHeight, setKeyboardHeight] = useState(0);
   const useKeyboard = () => {
