@@ -119,7 +119,7 @@ const SearchScreen = () => {
               </View>
           </View >
           </>}>
-            <FlatList data={products.length?products:[1,2,3,4]} style={{marginTop:10}} numColumns={2} onEndReachedThreshold={0.5} onEndReached={()=>{
+            <FlatList data={(products.length&&!loading)?products:[1,2,3,4]} style={{marginTop:10}} numColumns={2} onEndReachedThreshold={0.5} onEndReached={()=>{
               console.log("reached");
               setPage(page+1);
             }} renderItem={({item})=>{
@@ -138,7 +138,7 @@ const SearchScreen = () => {
                     <Image source={{uri:item.image}} style={{resizeMode:"contain",height:150,width:150,alignSelf:'center'}}/>
                   </View>
                   <View style={{flex:0.3}}>
-                    <Text numberOfLines={2} style={{fontWeight:'500',marginVertical:5}}>{item.title}</Text>
+                    <View style={{flex:1}}><Text numberOfLines={2} style={{fontWeight:'500',marginVertical:0}}>{item.title}</Text></View>
                     <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
                     <Image
                         style={{ width: 30, height: 30 }}
