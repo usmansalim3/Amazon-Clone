@@ -9,6 +9,7 @@ import axios from 'axios';
 import { removeAddress, setDefaultAddress } from '../../redux/UserReducer';
 import { link } from '../../data/data';
 import {Ionicons} from "@expo/vector-icons"
+import Animated, { FadeInDown } from 'react-native-reanimated';
 
 const YourAddresses = () => {
   const addresses=useSelector(state=>state.user.addresses);
@@ -72,8 +73,9 @@ const YourAddresses = () => {
             <MaterialIcons name="keyboard-arrow-right" size={24} color="black" />
             
       </Pressable>
-      <FlatList data={addresses} contentContainerStyle={{marginHorizontal:10}} showsVerticalScrollIndicator={false} renderItem={({item})=>{
+      <FlatList data={addresses} contentContainerStyle={{marginHorizontal:10}} showsVerticalScrollIndicator={false} renderItem={({item,index})=>{
         return(
+          <Animated.View entering={FadeInDown.duration(700+(index*100))}>
           <View style={{
             borderWidth:1,
             borderColor:'#D0D0D0',
@@ -136,7 +138,8 @@ const YourAddresses = () => {
               <Text>Set as default</Text>
             </Pressable>:<></>}
           </View>
-            </View>
+          </View>
+          </Animated.View>
         )
       }}/>
       

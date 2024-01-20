@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native'
 import { useSelector } from 'react-redux'
 import { FlatList } from 'react-native-gesture-handler'
 import moment from 'moment/moment'
+import Animated, { FadeInDown } from 'react-native-reanimated'
 
 
 const Orders = () => {
@@ -27,8 +28,9 @@ const Orders = () => {
             }}
           />
             )
-        }} renderItem={({item})=>{
+        }} renderItem={({item,index})=>{
             return(
+                <Animated.View entering={FadeInDown.duration(700+(index*100))}>
                 <Pressable onPress={()=>{
                     navigation.navigate('viewOrder',{
                         item
@@ -61,7 +63,8 @@ const Orders = () => {
                     <Text>{item.paymentMethod}</Text>
                 </View>
             </View>
-            </Pressable>
+                </Pressable>
+                </Animated.View>
             )
         }}/>
     </SafeAreaView>

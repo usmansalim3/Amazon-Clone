@@ -3,6 +3,7 @@ import React from 'react'
 import {Ionicons,AntDesign} from "@expo/vector-icons"
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { FlatList } from 'react-native-gesture-handler'
+import Animated, { FadeInDown } from 'react-native-reanimated'
 
 const ViewOrder = () => {
   const navigation=useNavigation();
@@ -33,7 +34,7 @@ const ViewOrder = () => {
                         productDetails:item
                     })
                 }}>
-                    <View style={{flex:1,flexDirection:'row'}}>
+                    <Animated.View entering={FadeInDown.duration(700+(index*100))} style={{flex:1,flexDirection:'row'}}>
                         <View style={{flex:0.3}}>
                             <Image source={{uri:item.image}} style={{resizeMode:"contain",height:120,width:'100%'}}/>
                         <View>
@@ -63,7 +64,7 @@ const ViewOrder = () => {
                                 <Text style={{fontSize:16,marginRight:5}}>{item.quantity}</Text>
                             </View>
                         </View>
-                    </View>
+                    </Animated.View>
                 </Pressable>
             )
         }}/>

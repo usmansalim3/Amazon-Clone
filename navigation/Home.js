@@ -92,6 +92,7 @@ const Home = () => {
         name="Cart"
         component={CartScreen}
         options={{
+          unmountOnBlur:true,
           tabBarIcon: ({ focused, color, size }) => (
             <View>
             <View style={{backgroundColor:'#E31837',borderRadius:10,position:'absolute',right:1,top:0,zIndex:10,paddingHorizontal:3}}>

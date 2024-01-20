@@ -7,6 +7,7 @@ import { removeFromWish } from '../../redux/UserReducer'
 import { link } from '../../data/data'
 import { StackActions, useNavigation } from '@react-navigation/native'
 import {Ionicons} from "@expo/vector-icons"
+import Animated, { FadeInDown } from 'react-native-reanimated'
 
 const WishlistScreen = () => {
   const dispatch=useDispatch();
@@ -31,9 +32,9 @@ const WishlistScreen = () => {
         <Ionicons name="chevron-back-sharp" size={24} color="black" style={{top:2}} onPress={()=>navigation.goBack()} />
         <Text style={{fontSize:22}}>Your Wishlist</Text>
       </View>
-        <FlatList data={wishlist} contentContainerStyle={{marginLeft:10}} renderItem={({item})=>{
+        <FlatList data={wishlist} contentContainerStyle={{marginLeft:10}} renderItem={({item,index})=>{
             return(
-                <View style={{flexDirection:'row',flex:1,marginRight:10,paddingVertical:5}}>
+                <Animated.View entering={FadeInDown.duration(700+(index*100))} style={{flexDirection:'row',flex:1,marginRight:10,paddingVertical:5}}>
                     <View style={{flex:0.4,justifyContent:"center",alignItems:'center',marginRight:5}}>
                         <Image source={{uri:item.image}} style={{resizeMode:"contain",height:120,width:'100%',alignSelf:'center'}}/>
                     </View>
@@ -59,7 +60,7 @@ const WishlistScreen = () => {
                         <Text style={{textAlign:'center'}}>Remove from wishlist</Text>
                     </Pressable>
                     </View>
-                </View>
+                </Animated.View>
                 // <View style={{marginBottom:20}}>
                 //     <View style={{flex:1,flexDirection:'row'}}>
                 //         <View style={{flex:0.4,marginRight:5}}>

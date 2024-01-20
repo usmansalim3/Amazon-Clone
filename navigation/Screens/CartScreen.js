@@ -19,17 +19,19 @@ import { decrementQuantity, incementQuantity, removeFromCart } from "../../redux
 import { addWish } from "../../redux/UserReducer";
 import { link } from "../../data/data";
 import Toast, { BaseToast } from "react-native-toast-message";
+import Animated, { FadeIn, FadeInDown, SequencedTransition, useSharedValue } from "react-native-reanimated";
 
 const CartScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const sharedValue=useSharedValue(700);
   const { userName, addresses, userId,wishlist } = useSelector((state) => state.user);
   const cart = useSelector((state) => state.cart.cart);
   console.log(cart)
   function getSubtotal() {
     let subTotal = 0;
     cart.forEach((item) => (subTotal += item.price*(item.quantity)));
-    return subTotal;
+    return subTotal.toFixed(2);
   }
 
   async function addToWishlist(item){
@@ -175,12 +177,12 @@ const CartScreen = () => {
           marginBottom:3
         }}
       />
-      <FlatList
+      <Animated.FlatList
         data={cart}
         contentContainerStyle={{marginHorizontal:5}}
-        renderItem={({ item }) => {
+        renderItem={({ item, index }) => {
           return (
-            <View style={{marginBottom:20}}>
+            <Animated.View entering={FadeInDown.duration(700+(index*100))} style={{marginBottom:20}}>
                     <View style={{flex:1,flexDirection:'row'}}>
                         <View style={{flex:0.4,marginRight:5}}>
                             <Image source={{uri:item.image}} style={{resizeMode:"contain",height:120,width:'100%'}}/>
@@ -244,7 +246,7 @@ const CartScreen = () => {
                             </View>
                         </View>
                     </View>
-                </View>
+                </Animated.View>
             // <View style={{ marginBottom: 20 }}>
             //   <View
             //     style={{

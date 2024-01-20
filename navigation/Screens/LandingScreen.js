@@ -26,6 +26,7 @@ import { useDispatch, useSelector } from "react-redux";
 import MemoizedBottomModal from "../../components/MemoizedModal";
 import { setCategory as setCategoryReducer } from "../../redux/ProductsReducer";
 import { CollapsibleHeaderScrollView } from "react-native-collapsible-header-views";
+import Animated, { Easing, FadeIn, FadeInDown, FadeInLeft, SlideInLeft } from "react-native-reanimated";
 
 
 function Wrapper({children}){
@@ -123,7 +124,8 @@ const LandingScreen = () => {
       >
     <Wrapper>  
           <View style={{ paddingTop: 5 }}>
-            <FlatList
+            <Animated.FlatList
+              entering={FadeInLeft.duration(800)}
               horizontal
               data={list}
               style={{marginTop:10}}
@@ -164,11 +166,13 @@ const LandingScreen = () => {
             <Text style={{ fontSize: 18, fontWeight: "bold", margin: 5 }}>
               Trending deals of the week
             </Text>
-            <FlatList
+            <Animated.FlatList
+              entering={FadeInDown.duration(800)}
               data={deals}
               numColumns={2}
               renderItem={({ item }) => {
                 return (
+                  <Animated.View style={{flex:1}} >
                   <Pressable style={{flex:1}} onPress={()=>navigation.navigate('SingleProduct',{
                     productDetails:item
                   })}>
@@ -177,6 +181,7 @@ const LandingScreen = () => {
                     style={{ width: '100%', height: 200, resizeMode: "contain" }}
                     />
                   </Pressable>
+                  </Animated.View>
                 );
               }}
             />

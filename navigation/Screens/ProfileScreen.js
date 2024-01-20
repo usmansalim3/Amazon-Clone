@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { CommonActions, StackActions, useNavigation } from '@react-navigation/native'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../../redux/UserReducer'
+import Animated, { FadeInDown, FadeOutDown } from 'react-native-reanimated'
 
 const ProfileScreen = () => {
   const navigation=useNavigation();
@@ -11,7 +12,7 @@ const ProfileScreen = () => {
   const userName=useSelector(state=>state.user.userName)
   return (
     <SafeAreaView style={{paddingTop:50}}>
-      <View>
+      <Animated.View entering={FadeInDown.duration(700)}>
         <Text style={{fontWeight:'700',fontSize:22,marginLeft:12,marginBottom:10}}>Welcome {userName}</Text>
         <View style={{flexWrap:'wrap',flexDirection:'row',rowGap:10,columnGap:5,paddingHorizontal:10}}>
           <Pressable onPress={()=>navigation.navigate('orders')} style={{backgroundColor:"#D0D0D0",borderRadius:10,paddingHorizontal:10,paddingVertical:10,width:"49%"}}><Text style={{fontWeight:'600',textAlign:'center',fontSize:16,fontWeight:'600'}}>Your orders</Text></Pressable>
@@ -23,7 +24,7 @@ const ProfileScreen = () => {
             dispatch(logout());
           }} style={{backgroundColor:"#D0D0D0",borderRadius:10,paddingHorizontal:10,paddingVertical:10,width:"49%"}}><Text style={{fontWeight:'600',textAlign:'center',fontSize:16}}>Log out</Text></Pressable>
         </View>
-      </View>
+      </Animated.View>
     </SafeAreaView>
   )
 }

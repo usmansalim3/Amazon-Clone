@@ -1,5 +1,5 @@
 import { SafeAreaView, StyleSheet, Text, View,TextInput, Image, Pressable, FlatList, LogBox, ScrollView, Keyboard,Platform,StatusBar, Dimensions } from 'react-native'
-import React,{useState,useEffect, useLayoutEffect} from 'react'
+import React,{useState,useEffect, useLayoutEffect, useRef} from 'react'
 import { Ionicons,AntDesign } from "@expo/vector-icons";
 import { BottomModal, ModalContent, ModalTitle, SlideAnimation } from "react-native-modals";
 import { AirbnbRating } from 'react-native-ratings';
@@ -13,10 +13,14 @@ import { link } from '../../data/data';
 import { CollapsibleHeaderScrollView } from 'react-native-collapsible-header-views';
 import MemoizedCategoriesScroll from '../../components/MemoizedCategoriesScroll';
 import { verticalScale } from 'react-native-size-matters';
+import Animated, { FadeIn, FadeInDown, FadeInLeft, FadeInRight, FadeInUp, SequencedTransition, useAnimatedRef } from 'react-native-reanimated';
+import { ref } from 'yup';
 LogBox.ignoreAllLogs(true);
 
 const SearchScreen = () => {
     const navigation=useNavigation()
+    const flatListRef=useRef();
+    const animatedRef = useAnimatedRef();
     const dispatch=useDispatch();
     const route=useRoute()
     const {from,to,orderBy,rating,products,category}=useSelector(state=>state.products)
@@ -119,7 +123,7 @@ const SearchScreen = () => {
               </View>
           </View >
           </>}>
-            <FlatList data={(products.length&&!loading)?products:[1,2,3,4]} style={{marginTop:10}} numColumns={2} onEndReachedThreshold={0.5} onEndReached={()=>{
+            <Animated.FlatList ref={animatedRef} exiting={FadeInRight.duration(1000)} data={(products.length&&!loading)?products:[1,2,3,4]} style={{marginTop:10}} numColumns={2} onEndReachedThreshold={0.5} onEndReached={()=>{
               console.log("reached");
               setPage(page+1);
             }} renderItem={({item})=>{
@@ -134,6 +138,7 @@ const SearchScreen = () => {
                     productDetails: item,
                   })
                 }} style={{width:"50%",height:350,borderColor:"#D0D0D0",borderWidth:0.5,padding:5,paddingBottom:0}}>
+                  <Animated.View entering={FadeInDown}  style={{flex:1}}>
                   <View style={{flex:0.5}}>
                     <Image source={{uri:item.image}} style={{resizeMode:"contain",height:150,width:150,alignSelf:'center'}}/>
                   </View>
@@ -167,6 +172,7 @@ const SearchScreen = () => {
                     <Text style={{textAlign:'center'}}>Add to cart</Text>
                   </Pressable>
                   </View>
+                  </Animated.View>
                 </Pressable>
               )
             }} />
@@ -177,7 +183,7 @@ const SearchScreen = () => {
 
 function Skeleton(){
   return(
-    <View style={{width:"50%",height:350,borderColor:"#D0D0D0",borderWidth:0.7,padding:5,paddingBottom:0}}>
+    <Animated.View entering={FadeIn}  style={{width:"50%",height:350,borderColor:"#D0D0D0",borderWidth:0.7,padding:5,paddingBottom:0}}>
     <View style={{flex:0.7,backgroundColor:"#D0D0D0",marginBottom:10}}>
       <Text></Text>
     </View>
@@ -189,7 +195,7 @@ function Skeleton(){
     </View>
     <View style={{flex:0.1,backgroundColor:"#D0D0D0",marginBottom:3}}>
     </View>
-  </View>
+  </Animated.View>
   )
 }
 

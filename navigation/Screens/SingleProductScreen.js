@@ -34,6 +34,7 @@ import { FlatList } from "react-native-gesture-handler";
 import { nanoid } from "@reduxjs/toolkit";
 import ImageView from "react-native-image-viewing";
 import { StatusBar as expoBar } from 'expo-status-bar';
+import Animated, { FadeInDown, LightSpeedInLeft, SequencedTransition } from "react-native-reanimated";
 
 
 const SingleProductScreen = () => {
@@ -152,7 +153,7 @@ const SingleProductScreen = () => {
       backgroundColor:"white"
       }}
       >
-        <ScrollView>
+        <Animated.ScrollView>
         <View style={{flexDirection:'row',alignItems:'center',backgroundColor:"#00CED1",paddingHorizontal:10,paddingVertical:10,paddingTop:StatusBar.currentHeight+5}}>
         <View
               style={{
@@ -257,8 +258,8 @@ const SingleProductScreen = () => {
                 )}
             />
             </View> */}
-            <CarouselComponent image={image} carouselImages={carouselImages} inWish={inWish} width={width} addToWishlist={addToWishlist} offer={offer} removeFromWish={removeFromWish}/>
-        <View style={{ marginLeft: 10 }}>
+            <AnimatedCarouselComponent image={image} carouselImages={carouselImages} inWish={inWish} width={width} addToWishlist={addToWishlist} offer={offer} removeFromWish={removeFromWish}/>
+        <Animated.View entering={FadeInDown.duration(900)} style={{ marginLeft: 10 }}>
           <Text
             style={{
               width: "80%",
@@ -298,15 +299,15 @@ const SingleProductScreen = () => {
               Deliver to {defaultAddress?.name?defaultAddress?.name:"Choose an address"} - {defaultAddress?.city?defaultAddress?.city:""} {defaultAddress?.postalCode?defaultAddress?.postalCode:""}
             </Text>
           </View>
-        </View>
-        <View style={{marginTop:'10%',marginBottom:10}}>
+        </Animated.View>
+        <Animated.View entering={FadeInDown.duration(1100)} style={{marginTop:'10%',marginBottom:10}}>
           <Pressable onPress={inCart?removeFromCartHandler:addToCartHandler} style={{padding:10,borderRadius:20,backgroundColor:"#ffc72c",justifyContent:'center',alignItems:'center',width:'90%',alignSelf:'center',marginVertical:10}}>
             {inCart?<Text style={{fontWeight:500}}>Added to cart</Text>:<Text style={{fontWeight:500}}>Add to cart</Text>}
           </Pressable>
           <Pressable style={{padding:10,borderRadius:20,backgroundColor:"#ffc72c",justifyContent:'center',alignItems:'center',width:'90%',alignSelf:'center'}}>
             <Text style={{fontWeight:500}}>Buy Now</Text>
           </Pressable>
-        </View>
+        </Animated.View>
         <View style={{flexDirection:'row',justifyContent:"space-between",marginHorizontal:10,alignItems:"center"}}>
         <Text style={{fontSize:22}}>Reviews</Text>
         <ReviewModal vis={vis} setVis={setVis} setReviews={setReviews} userId={userId} userName={userName} id={id}/>
@@ -319,7 +320,7 @@ const SingleProductScreen = () => {
               marginVertical: 5,
             }}
           />
-        <FlatList data={reviews} ListEmptyComponent={()=>{
+        <Animated.FlatList data={reviews} ListEmptyComponent={()=>{
           if(!loadingReviews){
             return(
               <View style={{justifyContent:"center",alignItems:"center",marginVertical:30}}>
@@ -328,7 +329,7 @@ const SingleProductScreen = () => {
             )
           }
         }} renderItem={({item})=><ReviewCard userName={item.username} stars={item.stars} review={item.review} images={item.images} createdAt={item.createdAt}/>}/>
-      </ScrollView>
+      </Animated.ScrollView>
     </SafeAreaView>
   );
 };
@@ -545,7 +546,7 @@ function ReviewModal({vis,setVis,userId,setReviews,userName,id}){
 export default SingleProductScreen;
 
 const styles = StyleSheet.create({});
-function CarouselComponent({offer,inWish,removeFromWish,addToWishlist,carouselImages,width,image})
+const CarouselComponent=React.forwardRef(({offer,inWish,removeFromWish,addToWishlist,carouselImages,width,image})=>
 {
   const route=useRoute();
   const images=useMemo(()=>{
@@ -560,7 +561,7 @@ function CarouselComponent({offer,inWish,removeFromWish,addToWishlist,carouselIm
   const [activeIndex,setActiveIndex]=useState(0);
   const[imageViewVisible,setImageViewVisible]=useState(false);
   return(
-    <>
+    <Animated.View entering={FadeInDown.duration(700)}>
       <ImageView images={images} keyExtractor={(item)=>item.key} presentationStyle="overFullScreen" imageIndex={activeIndex} visible={imageViewVisible} onRequestClose={setImageViewVisible}/>
     <View>
       {offer?<View
@@ -635,6 +636,7 @@ function CarouselComponent({offer,inWish,removeFromWish,addToWishlist,carouselIm
                 )}
                 />
             </View>
-                </>
+                </Animated.View>
   )
-}
+});
+const AnimatedCarouselComponent=Animated.createAnimatedComponent(CarouselComponent)
