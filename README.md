@@ -44,6 +44,7 @@ https://github.com/usmansalim3/Amazon-Clone-Backend
 
 ## Demo
 Reanimated Animations Demo
+
 https://github.com/usmansalim3/openAI/assets/112751010/02d28cd2-6af6-42ec-814e-d7b282115f13
 
 https://github.com/usmansalim3/Amrutam-Task/assets/112751010/e93bf426-9cd3-4e4e-b060-fee96d0cabcd
