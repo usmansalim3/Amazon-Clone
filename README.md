@@ -14,6 +14,7 @@ A full Stack Amazon Clone made using React Native , ExpressJS along with Global 
 - Go through orders history and view the summary 
 - Apply various filters while searching products
 - Sticky header that collapses on scroll
+- Reanimated animations for a smooth user experience
 
 
 ## Optimizations
@@ -27,7 +28,7 @@ A full Stack Amazon Clone made using React Native , ExpressJS along with Global 
 
 ## Tech Stack
 
-**Client:** React Native, Redux ToolKit, Expo
+**Client:** React Native, Redux ToolKit, Expo, Reanimated
 
 **Server:** Node, Express, Cloudinary, MongoDB
 
@@ -42,6 +43,9 @@ https://github.com/usmansalim3/Amazon-Clone-Backend
 ![Screenshot 2024-01-18 210420](https://github.com/usmansalim3/Amazon-Clone/assets/112751010/4fbfaa7d-c74a-461e-a042-7141147deb18)
 
 ## Demo
+Reanimated Animations Demo
+https://github.com/usmansalim3/openAI/assets/112751010/02d28cd2-6af6-42ec-814e-d7b282115f13
+
 https://github.com/usmansalim3/Amrutam-Task/assets/112751010/e93bf426-9cd3-4e4e-b060-fee96d0cabcd
 
 https://github.com/usmansalim3/Amrutam-Task/assets/112751010/0853a63b-371c-46ec-bc3c-7c85c0195246
