@@ -6,7 +6,7 @@ A full Stack Amazon Clone made using React Native , ExpressJS along with Global 
 
 ## Features
 
-- User Authentication through JWT.
+- User Authentication through JWT
 - Add , delete , edit multiple addresses for a single user 
 - Rate products , write reviews and upload pictures in the reviews section
 - All review pictures are uploaded to Cloudinary
