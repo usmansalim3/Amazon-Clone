@@ -4,7 +4,6 @@
 A full Stack Amazon Clone made using React Native , ExpressJS along with Global State Management using Redux Toolkit.
 
 
-
 ## Features
 
 - User Authentication through JWT
