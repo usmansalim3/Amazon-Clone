@@ -1,0 +1,12 @@
+name: Hello World Workflow
+
+on:
+  repository_dispatch:
+    types: [hello-world-event]  # Custom event that will trigger this workflow
+
+jobs:
+  hello-world-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Hello World
+        run: echo "Hello, World!"
