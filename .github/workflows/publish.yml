@@ -1,13 +1,14 @@
 name: Hello World Workflow
 
 on:
-  repository_dispatch:
-    types: [hello-world-event]  # Custom event that will trigger this workflow
+  workflow_dispatch:
+  push:
+    branches:
+      - master
 
 jobs:
   hello-world-job:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
     steps:
       - name: Print Hello World
-        run: echo "Hello, World!"
+        run: echo "Hello, World! main"
