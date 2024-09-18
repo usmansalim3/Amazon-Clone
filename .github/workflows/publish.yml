@@ -1,8 +1,7 @@
 name: Hello World Workflow
 
 on:
-  repository_dispatch:
-    types: [hello-world-event]
+  workflow_dispatch: # Allows manual triggering of the action remotely
 
 jobs:
   hello-world-job:
